@@ -1,32 +1,28 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterModule, NavbarComponent, FooterComponent],
   template: `
-    <header>
-      <nav>
-        <ul>
-          <li><a routerLink="/">Home</a></li>
-          <li><a routerLink="/add-card">Add Credit Card</a></li>
-          <li><a routerLink="/transactions">Transactions</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
+    <app-navbar></app-navbar>
+    <main class="main-content">
       <router-outlet></router-outlet>
     </main>
+    <app-footer></app-footer>
   `,
   styles: [`
-    nav ul {
+    :host {
       display: flex;
-      list-style-type: none;
-      padding: 0;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    nav ul li {
-      margin-right: 1rem;
+    .main-content {
+      flex: 1;
+      padding: 2rem 0;
     }
   `]
 })
