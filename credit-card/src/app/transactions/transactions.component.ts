@@ -53,7 +53,7 @@ interface Transaction {
       <ul class="transaction-list">
         <li *ngFor="let transaction of filteredTransactions" class="transaction-item">
           <strong>{{ getCardNumber(transaction.credit_card) }}</strong>
-          <span class="amount">{{ transaction.amount }} {{ transaction.currency }}</span>
+          <span class="amount">{{ transaction.amount | number:'1.2-2' }} {{ transaction.currency }}</span>
           <span class="date">{{ transaction.date | date }}</span>
           <p class="comment">{{ transaction.comment }}</p>
           <button (click)="removeTransaction(transaction.uid)" class="remove-btn">Remove</button>
