@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
   `,
   styles: [`
     .navbar {
-      background-color: #2c3e50;  /* Darker background for better contrast */
+      background-color: #B85042;  /* Darker background for better contrast */
       color: white;
       padding: 1rem 0;
     }
@@ -45,7 +45,7 @@ import { RouterModule } from '@angular/router';
       margin-left: 1rem;
     }
     .nav-links a {
-      color: black;  /* Light grey color for better visibility */
+      color: #A7BEAE;  /* Light grey color for better visibility */
       text-decoration: none;
       padding: 0.5rem 1rem;
       border-radius: var(--border-radius);
