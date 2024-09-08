@@ -45,7 +45,7 @@ import { RouterModule } from '@angular/router';
       margin-left: 1rem;
     }
     .nav-links a {
-      color: #ecf0f1;  /* Light grey color for better visibility */
+      color: black;  /* Light grey color for better visibility */
       text-decoration: none;
       padding: 0.5rem 1rem;
       border-radius: var(--border-radius);
