@@ -26,18 +26,20 @@ interface Transaction {
   standalone: true,
   imports: [CommonModule, ExpirationDatePipe],
   template: `
-    <div *ngIf="card">
+    <div class="container" *ngIf="card">
       <h1>Credit Card Details</h1>
-      <p><strong>Card Number:</strong> {{ card.card_number }}</p>
-      <p><strong>Cardholder Name:</strong> {{ card.cardholder_name }}</p>
-      <p><strong>CSC Code:</strong> {{ card.csc_code }}</p>
-      <p><strong>Expiration Date:</strong> {{ card.expiration_date_month | expirationDate:card.expiration_date_year }}</p>
-      <p><strong>Issuer:</strong> {{ card.issuer }}</p>
+      <div class="card-details">
+        <p><strong>Card Number:</strong> {{ card.card_number }}</p>
+        <p><strong>Cardholder Name:</strong> {{ card.cardholder_name }}</p>
+        <p><strong>CSC Code:</strong> {{ card.csc_code }}</p>
+        <p><strong>Expiration Date:</strong> {{ card.expiration_date_month | expirationDate : card.expiration_date_year }}</p>
+        <p><strong>Issuer:</strong> {{ card.issuer }}</p>
+      </div>
       <button (click)="removeCard()">Remove Card</button>
 
       <h2>Transactions</h2>
-      <ul>
-        <li *ngFor="let transaction of transactions">
+      <ul class="transaction-list">
+        <li *ngFor="let transaction of transactions" class="transaction-item">
           <strong>{{ transaction.amount }} {{ transaction.currency }}</strong>
           <span>{{ transaction.date | date }}</span>
           <p>{{ transaction.comment }}</p>
@@ -46,14 +48,23 @@ interface Transaction {
     </div>
   `,
   styles: [`
-    ul {
-      list-style-type: none;
-      padding: 0;
+    .card-details {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--box-shadow);
     }
-    li {
-      border: 1px solid #ddd;
-      margin-bottom: 10px;
-      padding: 10px;
+    .transaction-list {
+      display: grid;
+      gap: 15px;
+    }
+    .transaction-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .transaction-item strong {
+      color: var(--primary-color);
     }
   `]
 })
