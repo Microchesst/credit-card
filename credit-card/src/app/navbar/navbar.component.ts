@@ -45,15 +45,15 @@ import { RouterModule } from '@angular/router';
       margin-left: 1rem;
     }
     .nav-links a {
-      color: #A7BEAE;  /* Light grey color for better visibility */
+      color: #666;  /* Light grey color for better visibility */
       text-decoration: none;
       padding: 0.5rem 1rem;
       border-radius: var(--border-radius);
       transition: background-color 0.3s, color 0.3s;
     }
     .nav-links a:hover, .nav-links a.active {
-      background-color: #34495e;  /* Slightly lighter than the navbar for contrast */
-      color: white;
+      background-color: #B85042;  /* Slightly lighter than the navbar for contrast */
+      color: #A7BEAE;
     }
   `]
 })
