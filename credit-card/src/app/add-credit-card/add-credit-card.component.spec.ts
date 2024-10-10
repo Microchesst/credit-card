@@ -9,5 +9,6 @@ export class AddCreditCardComponent {
   onSubmit(cardForm: any) {
     console.log('Form Submitted:', cardForm.value);
     // Here you can add logic to send the form data to your backend server
+    
   }
 }

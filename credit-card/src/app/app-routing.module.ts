@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'add-credit-card', loadChildren: () => import('./add-credit-card/add-credit-card.module').then(m => m.AddCreditCardModule) },
   { path: 'transactions', component: TransactionsComponent },
