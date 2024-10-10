@@ -1,3 +1,8 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+
 <h1>Transactions</h1>
 
 <!-- Filter by credit card number -->
@@ -39,4 +44,3 @@
   </div>
   <button type="submit" [disabled]="!transactionForm.valid">Add Transaction</button>
 </form>
-

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreditCardService } from '../services/credit-card.service';
-import 
+import { Routes } from '@angular/router';
 
 @Component({
   selector: 'app-add-card',
@@ -94,7 +94,7 @@ import
     }
   `]
 })
-export class AddCardComponent implements OnInit {
+export class AddCreditCardComponent implements OnInit {
   cardForm!: FormGroup;
 
   constructor(

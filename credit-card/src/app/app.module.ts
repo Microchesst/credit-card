@@ -7,19 +7,15 @@ import { HomeComponent } from './home/home.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { AppRoutingModule } from './app-routing.module';  
 
+
+
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    HomeComponent,
-    TransactionsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule  
   ],
   providers: [],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
