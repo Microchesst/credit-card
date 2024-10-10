@@ -1,1 +1,28 @@
-<p>add-card works!</p>
+<h1>Add New Credit Card</h1>
+<form #cardForm="ngForm" (ngSubmit)="onSubmit(cardForm)">
+  <div>
+    <label for="cardNumber">Card Number:</label>
+    <input type="text" id="cardNumber" name="cardNumber" ngModel required minlength="7" maxlength="16">
+  </div>
+  <div>
+    <label for="cardHolder">Cardholder Name:</label>
+    <input type="text" id="cardHolder" name="cardHolder" ngModel required>
+  </div>
+  <div>
+    <label for="cscCode">CSC Code:</label>
+    <input type="text" id="cscCode" name="cscCode" ngModel required pattern="[0-9]{3}">
+  </div>
+  <div>
+    <label for="expMonth">Expiration Month:</label>
+    <input type="number" id="expMonth" name="expMonth" ngModel required min="1" max="12">
+  </div>
+  <div>
+    <label for="expYear">Expiration Year:</label>
+    <input type="number" id="expYear" name="expYear" ngModel required>
+  </div>
+  <div>
+    <label for="issuer">Issuer:</label>
+    <input type="text" id="issuer" name="issuer" ngModel required>
+  </div>
+  <button type="submit" [disabled]="!cardForm.valid">Add Credit Card</button>
+</form>

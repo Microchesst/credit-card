@@ -1,1 +1,42 @@
-<p>transactions works!</p>
+<h1>Transactions</h1>
+
+<!-- Filter by credit card number -->
+<div>
+  <label for="filter">Filter by Card Number:</label>
+  <input type="text" id="filter" [(ngModel)]="filterCardNumber" placeholder="Enter card number">
+</div>
+
+<!-- List of transactions -->
+<ul>
+  <li *ngFor="let transaction of filteredTransactions">
+    <strong>{{ transaction.credit_card }}</strong> - 
+    {{ transaction.amount }} {{ transaction.currency }} - 
+    {{ transaction.comment }} ({{ transaction.date }})
+    <button (click)="removeTransaction(transaction)">Remove</button>
+  </li>
+</ul>
+<h2>Add New Transaction</h2>
+<form #transactionForm="ngForm" (ngSubmit)="addTransaction(transactionForm)">
+  <div>
+    <label for="creditCard">Credit Card:</label>
+    <input type="text" id="creditCard" name="creditCard" ngModel required>
+  </div>
+  <div>
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" ngModel required>
+  </div>
+  <div>
+    <label for="currency">Currency:</label>
+    <input type="text" id="currency" name="currency" ngModel required>
+  </div>
+  <div>
+    <label for="comment">Comment:</label>
+    <input type="text" id="comment" name="comment" ngModel>
+  </div>
+  <div>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" ngModel required>
+  </div>
+  <button type="submit" [disabled]="!transactionForm.valid">Add Transaction</button>
+</form>
+

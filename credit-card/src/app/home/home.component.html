@@ -1,1 +1,20 @@
-<p>home works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent {
+  creditCards = [
+    { card_number: '1234567890123456', cardholder_name: 'John Doe', issuer: 'Bank A' },
+    { card_number: '2345678901234567', cardholder_name: 'Jane Smith', issuer: 'Bank B' }
+  ];
+}
+
+<h1>Credit Cards</h1>
+<ul>
+  <li *ngFor="let card of creditCards">
+    {{ card.card_number }} - {{ card.cardholder_name }} ({{ card.issuer }})
+  </li>
+</ul>
