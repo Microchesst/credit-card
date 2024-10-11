@@ -1,1 +1,26 @@
-<p>card-details works!</p>
+<div class="container">
+    <h2>Credit Card Details</h2>
+  
+    <!-- Card Details -->
+    <div class="card-details">
+      <p><strong>Card Number:</strong> {{ card.card_number }}</p>
+      <p><strong>Cardholder Name:</strong> {{ card.cardholder_name }}</p>
+      <p><strong>Issuer:</strong> {{ card.issuer }}</p>
+      <p><strong>CSC Code:</strong> {{ card.csc_code }}</p>
+      <p><strong>Expiration Date:</strong> {{ card.expiration_date_month }}/{{ card.expiration_date_year }}</p>
+  
+      <button (click)="removeCard()">Remove Card</button>
+    </div>
+  
+    <!-- Transactions for this card -->
+    <h3>Transactions</h3>
+    <ul class="transactions-list">
+      <li *ngFor="let transaction of transactions" class="transaction-item">
+        <span>{{ transaction.amount }} {{ transaction.currency }}</span>
+        <span>{{ transaction.comment }}</span>
+        <span>{{ transaction.date }}</span>
+        <button (click)="removeTransaction(transaction.uid)">Remove</button>
+      </li>
+    </ul>
+  </div>
+  

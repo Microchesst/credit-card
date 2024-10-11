@@ -1,1 +1,12 @@
-<p>home works!</p>
+<div class="container">
+    <h1>Credit Cards</h1>
+    <ul class="card-list">
+      <li *ngFor="let card of creditCards" [routerLink]="['/card', card.card_number]" class="card-item">
+        <strong>{{ card.card_number }}</strong>
+        <span>{{ card.cardholder_name }}</span>
+        <span>{{ card.issuer }}</span>
+        <span>Expires: {{ card.expiration_date_month | expirationDate : card.expiration_date_year }}</span>
+      </li>
+    </ul>
+  </div>
+  
