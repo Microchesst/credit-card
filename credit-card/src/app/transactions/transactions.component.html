@@ -1,1 +1,57 @@
-<p>transactions works!</p>
+<div class="container">
+    <h2>Transactions</h2>
+  
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <label for="cardFilter">Filter by Card Number:</label>
+      <input id="cardFilter" [(ngModel)]="cardFilter" (ngModelChange)="filterTransactions()">
+    </div>
+  
+    <!-- Add Transaction Button -->
+    <button (click)="showAddTransactionForm = true" class="add-transaction-btn">Add Transaction</button>
+  
+    <!-- Add Transaction Form -->
+    <div *ngIf="showAddTransactionForm" class="add-transaction-form">
+      <h3>Add New Transaction</h3>
+      <form (ngSubmit)="addTransaction()" class="transaction-form">
+        <div class="form-group">
+          <label for="credit_card">Credit Card:</label>
+          <input id="credit_card" [(ngModel)]="newTransaction.credit_card" name="credit_card" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="amount">Amount:</label>
+          <input id="amount" type="number" [(ngModel)]="newTransaction.amount" name="amount" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="currency">Currency:</label>
+          <input id="currency" [(ngModel)]="newTransaction.currency" name="currency" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="comment">Comment:</label>
+          <input id="comment" [(ngModel)]="newTransaction.comment" name="comment">
+        </div>
+  
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input id="date" type="date" [(ngModel)]="newTransaction.date" name="date" required>
+        </div>
+  
+        <button type="submit">Add Transaction</button>
+      </form>
+    </div>
+  
+    <!-- Transactions List -->
+    <ul class="transactions-list">
+      <li *ngFor="let transaction of filteredTransactions" class="transaction-item">
+        <span>{{ getCardNumber(transaction.credit_card) }}</span>
+        <span>{{ transaction.amount }} {{ transaction.currency }}</span>
+        <span>{{ transaction.comment }}</span>
+        <span>{{ transaction.date }}</span>
+        <button (click)="removeTransaction(transaction.uid)">Remove</button>
+      </li>
+    </ul>
+  </div>
+  
