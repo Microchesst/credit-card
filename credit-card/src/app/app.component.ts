@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NavbarComponent } from './navbar/navbar.component';
+import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, FooterComponent, NavbarComponent],
   template: `
     <app-navbar></app-navbar>
     <main class="main-content">
@@ -15,17 +15,10 @@ import { FooterComponent } from './footer/footer.component';
     <app-footer></app-footer>
   `,
   styles: [`
-    :host {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
     .main-content {
-      flex: 1;
-      padding: 2rem 0;
+      min-height: calc(100vh - 160px);
+      padding: 0 1rem;
     }
   `]
 })
-export class AppComponent {
-  title = 'credit-card';
-}
+export class AppComponent { }

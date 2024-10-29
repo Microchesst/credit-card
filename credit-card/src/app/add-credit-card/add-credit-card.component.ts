@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreditCardService } from '../services/credit-card.service';
-import { Routes } from '@angular/router';
 
 @Component({
-  selector: 'app-add-card',
+  selector: 'app-add-credit-card',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="container">
       <h2>Add New Credit Card</h2>
@@ -41,10 +41,10 @@ import { Routes } from '@angular/router';
 
         <div class="form-group">
           <label for="expiration_date_month">Expiration Month:</label>
-          <input id="expiration_date_month" type="number" formControlName="expiration_date_month">
+          <input id="expiration_date_month" type="number" formControlName="expiration_date_month" min="1" max="12">
           <div *ngIf="cardForm.get('expiration_date_month')?.invalid && (cardForm.get('expiration_date_month')?.dirty || cardForm.get('expiration_date_month')?.touched)" class="error-message">
             <small *ngIf="cardForm.get('expiration_date_month')?.errors?.['required']">Expiration month is required.</small>
-            <small *ngIf="cardForm.get('expiration_date_month')?.errors?.['min'] || cardForm.get('expiration_date_month')?.errors?.['max']">Expiration month must be between 1 and 12.</small>
+            <small *ngIf="cardForm.get('expiration_date_month')?.errors?.['min'] || cardForm.get('expiration_date_month')?.errors?.['max']">Month must be between 1 and 12.</small>
           </div>
         </div>
 
@@ -66,11 +66,16 @@ import { Routes } from '@angular/router';
     </div>
   `,
   styles: [`
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
     .card-form {
       background-color: white;
-      border-radius: var(--border-radius);
+      border-radius: 8px;
       padding: 20px;
-      box-shadow: var(--box-shadow);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .form-group {
       margin-bottom: 15px;
@@ -80,49 +85,62 @@ import { Routes } from '@angular/router';
       margin-bottom: 5px;
       font-weight: bold;
     }
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
     .error-message {
-      color: var(--secondary-color);
+      color: #dc3545;
       font-size: 0.9em;
       margin-top: 5px;
     }
-    button[type="submit"] {
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
       margin-top: 20px;
     }
-    button[type="submit"]:disabled {
+    button:disabled {
       background-color: #cccccc;
       cursor: not-allowed;
     }
   `]
 })
-export class AddCreditCardComponent implements OnInit {
-  cardForm!: FormGroup;
+export class AddCreditCardComponent {
+  private fb = inject(FormBuilder);
+  private creditCardService = inject(CreditCardService);
+  private router = inject(Router);
 
-  constructor(
-    private fb: FormBuilder,
-    private creditCardService: CreditCardService,
-    private router: Router
-  ) {}
+  cardForm = this.fb.group({
+    card_number: ['', [Validators.required, Validators.pattern(/^\d{7,16}$/)]],
+    cardholder_name: ['', Validators.required],
+    csc_code: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
+    expiration_date_month: [1, [Validators.required, Validators.min(1), Validators.max(12)]],
+    expiration_date_year: [new Date().getFullYear(), Validators.required],
+    issuer: ['']
+  });
 
-  ngOnInit() {
-    this.cardForm = this.fb.group({
-      card_number: ['', [Validators.required, Validators.pattern(/^\d{7,16}$/)]],
-      cardholder_name: ['', Validators.required],
-      csc_code: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
-      expiration_date_month: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
-      expiration_date_year: ['', Validators.required],
-      issuer: ['']
-    });
-  }
-
-  onSubmit() {
+  onSubmit(): void {
     if (this.cardForm.valid) {
-      this.creditCardService.addCard(this.cardForm.value).subscribe({
+      this.creditCardService.addCard({
+        card_number: Number(this.cardForm.get('card_number')?.value) || 0,
+        cardholder_name: this.cardForm.get('cardholder_name')?.value || '',
+        csc_code: Number(this.cardForm.get('csc_code')?.value) || 0,
+        expiration_date_month: Number(this.cardForm.get('expiration_date_month')?.value) || 1,
+        expiration_date_year: Number(this.cardForm.get('expiration_date_year')?.value) || new Date().getFullYear(),
+        issuer: this.cardForm.get('issuer')?.value || ''
+      }).subscribe({
         next: () => {
           this.router.navigate(['/']);
         },
         error: (error) => {
           console.error('Error adding card:', error);
-          // Handle error (e.g., show error message)
         }
       });
     }
